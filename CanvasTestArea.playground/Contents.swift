@@ -31,7 +31,8 @@ canvas.translate(byX: 0, byY: 300)
 let axiom = "F++F++F"
 let rule = "F-F++F-F"
 let angle = 60
-let length = 100
+var length = 30
+let iterations = 1
 
 func createWord(axiom: String, rule: String) -> String
 {
@@ -66,8 +67,17 @@ func drawWord(word: String)
     }
 }
 
-print(createWord(axiom: axiom, rule: rule)) // New word
-drawWord(word: createWord(axiom: axiom, rule: rule))
+var currentWord = axiom
+
+for iteration in 0...iterations
+{
+    canvas.saveState()
+    currentWord = createWord(axiom: currentWord, rule: rule) // New word
+    drawWord(word: createWord(axiom: currentWord, rule: rule)) // Draw the new word
+    canvas.restoreState()
+    
+    length /= 3
+}
 
 
 /*:
