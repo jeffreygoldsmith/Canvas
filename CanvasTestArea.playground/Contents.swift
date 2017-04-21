@@ -25,15 +25,15 @@ canvas
 
 // Draw the axes
 canvas.drawAxes()
-canvas.translate(byX: 100, byY: 300)
+canvas.translate(byX: 100, byY: 100)
 
 // Add code below...
 let axiom = "F++F++F"
 let rule = "F-F++F-F"
-let angle = 60
+let angle : Degrees = 60
 let scale = 3
 var length = 300
-let iterations = 3
+let iterations = 0
 
 func createWord(axiom: String, rule: String) -> String
 {
@@ -56,11 +56,11 @@ func drawWord(word: String)
             canvas.drawLine(fromX: 0, fromY: 0, toX: length, toY: 0)
             canvas.translate(byX: length, byY: 0)
             break
-        case "+":
-            canvas.rotate(by: (Degrees)(360 - angle))
-            break
         case "-":
-            canvas.rotate(by: Degrees(angle))
+            canvas.rotate(by: -angle)
+            break
+        case "+":
+            canvas.rotate(by: angle)
             break
         default:
             break
@@ -72,8 +72,11 @@ var currentWord = axiom
 
 for iteration in 0...iterations
 {
-    currentWord = createWord(axiom: currentWord, rule: rule) // New word
-    length /= scale
+    if (iteration != 0)
+    {
+        currentWord = createWord(axiom: currentWord, rule: rule) // New word
+        length /= scale
+    }
 }
 
 drawWord(word: currentWord) // Draw the new word
